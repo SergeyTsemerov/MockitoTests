@@ -1,4 +1,4 @@
-package com.sergeytsemerov.mockitotests.view
+package com.sergeytsemerov.mockitotests.view.search
 
 import android.os.Bundle
 import android.view.View
@@ -9,19 +9,21 @@ import androidx.appcompat.app.AppCompatActivity
 import com.sergeytsemerov.mockitotests.R
 import com.sergeytsemerov.mockitotests.databinding.ActivityMainBinding
 import com.sergeytsemerov.mockitotests.model.SearchResult
-import com.sergeytsemerov.mockitotests.presenter.PresenterContract
-import com.sergeytsemerov.mockitotests.presenter.SearchPresenter
+import com.sergeytsemerov.mockitotests.presenter.search.PresenterSearchContract
+import com.sergeytsemerov.mockitotests.presenter.search.SearchPresenter
 import com.sergeytsemerov.mockitotests.repository.GitHubApi
 import com.sergeytsemerov.mockitotests.repository.GitHubRepository
+import com.sergeytsemerov.mockitotests.view.details.DetailsActivity
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.*
 
-class MainActivity : AppCompatActivity(), ViewContract {
+class MainActivity : AppCompatActivity(), ViewSearchContract {
 
     private lateinit var binding: ActivityMainBinding
     private val adapter = SearchResultAdapter()
-    private val presenter: PresenterContract = SearchPresenter(this, createRepository())
+    private val presenter: PresenterSearchContract = SearchPresenter(this, createRepository())
+    private var totalCount: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +33,11 @@ class MainActivity : AppCompatActivity(), ViewContract {
     }
 
     private fun setUI() {
+        binding.toDetailsActivityButton.setOnClickListener {
+            startActivity(
+                DetailsActivity.getIntent(this, totalCount)
+            )
+        }
         setQueryListener()
         setRecyclerView()
     }
@@ -75,9 +82,8 @@ class MainActivity : AppCompatActivity(), ViewContract {
         searchResults: List<SearchResult>,
         totalCount: Int
     ) {
+        this.totalCount = totalCount
         adapter.updateResults(searchResults)
-        binding.resultsCountTextView.text =
-            String.format(Locale.getDefault(), getString(R.string.results_count), totalCount)
     }
 
     override fun displayError() {
