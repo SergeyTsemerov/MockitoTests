@@ -9,6 +9,7 @@ internal class DetailsPresenter internal constructor(
 ) : PresenterDetailsContract {
 
     private var view: ViewContract? = null
+    fun getView() = view
 
     override fun onAttach(view: ViewContract) {
         this.view = view

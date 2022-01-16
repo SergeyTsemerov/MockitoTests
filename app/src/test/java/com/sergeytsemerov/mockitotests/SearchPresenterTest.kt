@@ -25,7 +25,7 @@ class SearchPresenterTest {
 
     @Before
     fun setUp() {
-        MockitoAnnotations.initMocks(this)
+        MockitoAnnotations.openMocks(this)
         presenter = SearchPresenter(viewContract, repository)
     }
 
