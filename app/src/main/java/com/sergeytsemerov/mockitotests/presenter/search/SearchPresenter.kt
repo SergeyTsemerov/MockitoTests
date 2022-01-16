@@ -13,6 +13,7 @@ internal class SearchPresenter internal constructor(
 ) : PresenterSearchContract, GitHubRepositoryCallback {
 
     private var view: ViewContract? = null
+    fun getView() = view
 
     override fun onAttach(view: ViewContract) {
         this.view = view
