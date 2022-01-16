@@ -8,7 +8,6 @@ import com.sergeytsemerov.mockitotests.R
 import com.sergeytsemerov.mockitotests.databinding.ActivityDetailsBinding
 import com.sergeytsemerov.mockitotests.presenter.details.DetailsPresenter
 import com.sergeytsemerov.mockitotests.presenter.details.PresenterDetailsContract
-import kotlinx.android.synthetic.main.activity_details.*
 import java.util.*
 
 class DetailsActivity : AppCompatActivity(), ViewDetailsContract {
@@ -20,6 +19,7 @@ class DetailsActivity : AppCompatActivity(), ViewDetailsContract {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        presenter.onAttach(this)
         setUI()
     }
 
@@ -40,6 +40,11 @@ class DetailsActivity : AppCompatActivity(), ViewDetailsContract {
             String.format(Locale.getDefault(), getString(R.string.results_count), count)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.onDetach()
+    }
+
     companion object {
         const val TOTAL_COUNT_EXTRA = "TOTAL_COUNT_EXTRA"
         const val DEFAULT_VALUE = 0
@@ -49,6 +54,5 @@ class DetailsActivity : AppCompatActivity(), ViewDetailsContract {
                 putExtra(TOTAL_COUNT_EXTRA, totalCount)
             }
         }
-
     }
 }

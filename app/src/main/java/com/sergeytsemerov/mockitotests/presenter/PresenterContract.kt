@@ -1,3 +1,8 @@
 package com.sergeytsemerov.mockitotests.presenter
 
-internal interface PresenterContract {}
+import com.sergeytsemerov.mockitotests.view.ViewContract
+
+internal interface PresenterContract {
+    fun onAttach(view: ViewContract)
+    fun onDetach()
+}

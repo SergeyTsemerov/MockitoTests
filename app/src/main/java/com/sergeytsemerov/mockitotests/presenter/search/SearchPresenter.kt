@@ -3,6 +3,7 @@ package com.sergeytsemerov.mockitotests.presenter.search
 import com.sergeytsemerov.mockitotests.model.SearchResponse
 import com.sergeytsemerov.mockitotests.repository.GitHubRepository
 import com.sergeytsemerov.mockitotests.repository.GitHubRepository.GitHubRepositoryCallback
+import com.sergeytsemerov.mockitotests.view.ViewContract
 import com.sergeytsemerov.mockitotests.view.search.ViewSearchContract
 import retrofit2.Response
 
@@ -10,6 +11,12 @@ internal class SearchPresenter internal constructor(
     private val viewContract: ViewSearchContract,
     private val repository: GitHubRepository
 ) : PresenterSearchContract, GitHubRepositoryCallback {
+
+    private var view: ViewContract? = null
+
+    override fun onAttach(view: ViewContract) {
+        this.view = view
+    }
 
     override fun searchGitHub(searchQuery: String) {
         viewContract.displayLoading(true)
@@ -38,5 +45,9 @@ internal class SearchPresenter internal constructor(
     override fun handleGitHubError() {
         viewContract.displayLoading(false)
         viewContract.displayError()
+    }
+
+    override fun onDetach() {
+        view = null
     }
 }
