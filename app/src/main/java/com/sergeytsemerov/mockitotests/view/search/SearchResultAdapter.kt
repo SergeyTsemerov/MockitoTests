@@ -1,11 +1,11 @@
-package com.sergeytsemerov.mockitotests.view
+package com.sergeytsemerov.mockitotests.view.search
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.sergeytsemerov.mockitotests.databinding.ListItemBinding
 import com.sergeytsemerov.mockitotests.model.SearchResult
-import com.sergeytsemerov.mockitotests.view.SearchResultAdapter.SearchResultViewHolder
+import com.sergeytsemerov.mockitotests.view.search.SearchResultAdapter.SearchResultViewHolder
 
 internal class SearchResultAdapter : RecyclerView.Adapter<SearchResultViewHolder>() {
 

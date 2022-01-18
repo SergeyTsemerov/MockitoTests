@@ -1,5 +1,8 @@
 package com.sergeytsemerov.mockitotests.presenter
 
+import com.sergeytsemerov.mockitotests.view.ViewContract
+
 internal interface PresenterContract {
-    fun searchGitHub(searchQuery: String)
+    fun onAttach(view: ViewContract)
+    fun onDetach()
 }

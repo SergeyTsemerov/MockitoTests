@@ -1,10 +1,11 @@
 package com.sergeytsemerov.mockitotests
 
+import com.nhaarman.mockito_kotlin.mock
 import com.sergeytsemerov.mockitotests.model.SearchResponse
 import com.sergeytsemerov.mockitotests.model.SearchResult
-import com.sergeytsemerov.mockitotests.presenter.SearchPresenter
+import com.sergeytsemerov.mockitotests.presenter.search.SearchPresenter
 import com.sergeytsemerov.mockitotests.repository.GitHubRepository
-import com.sergeytsemerov.mockitotests.view.ViewContract
+import com.sergeytsemerov.mockitotests.view.search.ViewSearchContract
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
@@ -21,11 +22,11 @@ class SearchPresenterTest {
     private lateinit var repository: GitHubRepository
 
     @Mock
-    private lateinit var viewContract: ViewContract
+    private lateinit var viewContract: ViewSearchContract
 
     @Before
     fun setUp() {
-        MockitoAnnotations.initMocks(this)
+        MockitoAnnotations.openMocks(this)
         presenter = SearchPresenter(viewContract, repository)
     }
 
@@ -113,5 +114,18 @@ class SearchPresenterTest {
         presenter.handleGitHubResponse(response)
 
         verify(viewContract, times(1)).displaySearchResults(searchResults, 101)
+    }
+
+    @Test
+    fun onAttach_NotNull_Test() {
+        presenter.onAttach(mock())
+        assertNotNull(presenter.getView())
+    }
+
+    @Test
+    fun onDetach_Test() {
+        presenter.onAttach(mock())
+        presenter.onDetach()
+        assertNull(presenter.getView())
     }
 }
