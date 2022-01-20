@@ -6,13 +6,17 @@ import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.viewbinding.BuildConfig
+import com.sergeytsemerov.mockitotests.BuildConfig.TYPE
 import com.sergeytsemerov.mockitotests.R
 import com.sergeytsemerov.mockitotests.databinding.ActivityMainBinding
 import com.sergeytsemerov.mockitotests.model.SearchResult
 import com.sergeytsemerov.mockitotests.presenter.search.PresenterSearchContract
 import com.sergeytsemerov.mockitotests.presenter.search.SearchPresenter
+import com.sergeytsemerov.mockitotests.repository.FakeGitHubRepository
 import com.sergeytsemerov.mockitotests.repository.GitHubApi
 import com.sergeytsemerov.mockitotests.repository.GitHubRepository
+import com.sergeytsemerov.mockitotests.presenter.RepositoryContract
 import com.sergeytsemerov.mockitotests.view.details.DetailsActivity
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -68,8 +72,12 @@ class MainActivity : AppCompatActivity(), ViewSearchContract {
         })
     }
 
-    private fun createRepository(): GitHubRepository {
-        return GitHubRepository(createRetrofit().create(GitHubApi::class.java))
+    private fun createRepository(): RepositoryContract {
+        return if (TYPE == FAKE) {
+            FakeGitHubRepository()
+        } else {
+            GitHubRepository(createRetrofit().create(GitHubApi::class.java))
+        }
     }
 
     private fun createRetrofit(): Retrofit {
@@ -83,6 +91,10 @@ class MainActivity : AppCompatActivity(), ViewSearchContract {
         searchResults: List<SearchResult>,
         totalCount: Int
     ) {
+        with(binding.totalCountTextView) {
+            visibility = View.VISIBLE
+            text = String.format(Locale.getDefault(), getString(R.string.results_count), totalCount)
+        }
         this.totalCount = totalCount
         adapter.updateResults(searchResults)
     }
@@ -110,5 +122,6 @@ class MainActivity : AppCompatActivity(), ViewSearchContract {
 
     companion object {
         const val BASE_URL = "https://api.github.com"
+        const val FAKE = "FAKE"
     }
 }
