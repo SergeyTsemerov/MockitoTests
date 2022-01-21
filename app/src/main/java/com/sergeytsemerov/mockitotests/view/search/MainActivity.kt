@@ -6,17 +6,14 @@ import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.viewbinding.BuildConfig
-import com.sergeytsemerov.mockitotests.BuildConfig.TYPE
 import com.sergeytsemerov.mockitotests.R
 import com.sergeytsemerov.mockitotests.databinding.ActivityMainBinding
 import com.sergeytsemerov.mockitotests.model.SearchResult
+import com.sergeytsemerov.mockitotests.presenter.RepositoryContract
 import com.sergeytsemerov.mockitotests.presenter.search.PresenterSearchContract
 import com.sergeytsemerov.mockitotests.presenter.search.SearchPresenter
-import com.sergeytsemerov.mockitotests.repository.FakeGitHubRepository
+import com.sergeytsemerov.mockitotests.repository.GetRepo
 import com.sergeytsemerov.mockitotests.repository.GitHubApi
-import com.sergeytsemerov.mockitotests.repository.GitHubRepository
-import com.sergeytsemerov.mockitotests.presenter.RepositoryContract
 import com.sergeytsemerov.mockitotests.view.details.DetailsActivity
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -73,11 +70,7 @@ class MainActivity : AppCompatActivity(), ViewSearchContract {
     }
 
     private fun createRepository(): RepositoryContract {
-        return if (TYPE == FAKE) {
-            FakeGitHubRepository()
-        } else {
-            GitHubRepository(createRetrofit().create(GitHubApi::class.java))
-        }
+        return GetRepo().execute(createRetrofit().create(GitHubApi::class.java))
     }
 
     private fun createRetrofit(): Retrofit {
