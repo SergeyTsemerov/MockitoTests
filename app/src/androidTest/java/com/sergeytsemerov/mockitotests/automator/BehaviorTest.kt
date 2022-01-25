@@ -81,6 +81,46 @@ class BehaviorTest {
         Assert.assertEquals(changedText.text, "Number of results: 697")
     }
 
+    @Test
+    fun test_DetailsScreenIncrementButtonClick() {
+        val toDetails = uiDevice.findObject(By.res(packageName, "toDetailsActivityButton"))
+        toDetails.click()
+        val countZeroText =
+            uiDevice.wait(
+                Until.findObject(By.res(packageName, "totalCountTextView")),
+                TIMEOUT
+            )
+        Assert.assertEquals(countZeroText.text, "Number of results: 0")
+
+        val incrementButton = uiDevice.findObject(By.res(packageName, "incrementButton"))
+        incrementButton.click()
+        val changedText = uiDevice.wait(
+            Until.findObject(By.res(packageName, "totalCountTextView")),
+            TIMEOUT
+        )
+        Assert.assertEquals(changedText.text, "Number of results: 1")
+    }
+
+    @Test
+    fun test_DetailsScreenDecrementButtonClick() {
+        val toDetails = uiDevice.findObject(By.res(packageName, "toDetailsActivityButton"))
+        toDetails.click()
+        val countZeroText =
+            uiDevice.wait(
+                Until.findObject(By.res(packageName, "totalCountTextView")),
+                TIMEOUT
+            )
+        Assert.assertEquals(countZeroText.text, "Number of results: 0")
+
+        val decrementButton = uiDevice.findObject(By.res(packageName, "decrementButton"))
+        decrementButton.click()
+        val changedText = uiDevice.wait(
+            Until.findObject(By.res(packageName, "totalCountTextView")),
+            TIMEOUT
+        )
+        Assert.assertEquals(changedText.text, "Number of results: -1")
+    }
+
     companion object {
         private const val TIMEOUT = 5000L
     }
