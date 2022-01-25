@@ -1,4 +1,4 @@
-package com.sergeytsemerov.mockitotests
+package com.sergeytsemerov.mockitotests.espresso
 
 import android.view.View
 import android.widget.EditText
@@ -13,6 +13,8 @@ import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.sergeytsemerov.mockitotests.BuildConfig
+import com.sergeytsemerov.mockitotests.R
 import com.sergeytsemerov.mockitotests.view.search.MainActivity
 import junit.framework.TestCase
 import org.hamcrest.Matcher
