@@ -62,7 +62,6 @@ class MainActivity : AppCompatActivity(), ViewSearchContract {
         }
     }
 
-
     private fun createRepository(): RepositoryContract {
         return GetRepo().execute(createRetrofit().create(GitHubApi::class.java))
     }
