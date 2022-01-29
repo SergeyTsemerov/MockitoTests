@@ -24,7 +24,7 @@ class DetailsActivity : AppCompatActivity() {
     }
 
     companion object {
-        private const val TOTAL_COUNT_EXTRA = "TOTAL_COUNT_EXTRA"
+        const val TOTAL_COUNT_EXTRA = "TOTAL_COUNT_EXTRA"
         const val DEFAULT_VALUE = 0
 
         fun getIntent(context: Context, totalCount: Int): Intent {

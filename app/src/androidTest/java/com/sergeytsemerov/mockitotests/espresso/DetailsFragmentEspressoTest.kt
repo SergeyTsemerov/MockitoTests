@@ -1,4 +1,4 @@
-package com.sergeytsemerov.mockitotests
+package com.sergeytsemerov.mockitotests.espresso
 
 import android.widget.TextView
 import androidx.core.os.bundleOf
@@ -13,6 +13,9 @@ import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.sergeytsemerov.mockitotests.R
+import com.sergeytsemerov.mockitotests.TEST_NUMBER_OF_RESULTS_MINUS_1
+import com.sergeytsemerov.mockitotests.TEST_NUMBER_OF_RESULTS_PLUS_1
 import com.sergeytsemerov.mockitotests.view.details.DetailsFragment
 import junit.framework.TestCase
 import org.junit.Before

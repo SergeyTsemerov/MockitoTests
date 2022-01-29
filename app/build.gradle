@@ -83,6 +83,7 @@ ext {
     truthTestExtVersion = "1.4.0"
     uiAutomatorVersion = "2.2.0"
     fragmentTestingVersion = "1.4.1"
+    espressoContribVersion = "3.4.0"
 }
 
 dependencies {
@@ -122,4 +123,5 @@ dependencies {
     androidTestImplementation "androidx.test.uiautomator:uiautomator:$uiAutomatorVersion"
 
     debugImplementation "androidx.fragment:fragment-testing:$fragmentTestingVersion"
+    debugImplementation "androidx.test.espresso:espresso-contrib:$espressoContribVersion"
 }
