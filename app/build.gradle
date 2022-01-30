@@ -87,6 +87,7 @@ ext {
     rxAndroidVersion = "2.1.0"
     rxJavaVersion = "2.2.8"
     rxJava2Retrofit2AdapterVersion = "2.3.0"
+    archCoreTestingVersion = "2.1.0"
 }
 
 dependencies {
@@ -132,4 +133,5 @@ dependencies {
 
     debugImplementation "androidx.fragment:fragment-testing:$fragmentTestingVersion"
     debugImplementation "androidx.test.espresso:espresso-contrib:$espressoContribVersion"
+    testImplementation "androidx.arch.core:core-testing:$archCoreTestingVersion"
 }
