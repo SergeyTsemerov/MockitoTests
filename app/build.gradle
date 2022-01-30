@@ -84,9 +84,17 @@ ext {
     uiAutomatorVersion = "2.2.0"
     fragmentTestingVersion = "1.4.1"
     espressoContribVersion = "3.4.0"
+    rxAndroidVersion = "2.1.0"
+    rxJavaVersion = "2.2.8"
+    rxJava2Retrofit2AdapterVersion = "2.3.0"
 }
 
 dependencies {
+
+    //RxJava
+    implementation "io.reactivex.rxjava2:rxandroid:$rxAndroidVersion"
+    implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$rxJava2Retrofit2AdapterVersion"
 
     //Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
