@@ -38,5 +38,9 @@ internal class GitHubRepository(private val gitHubApi: GitHubApi) : RepositoryCo
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
     }
+
+    override suspend fun searchGithubAsync(query: String): SearchResponse {
+        return gitHubApi.searchGithubAsync(query).await()
+    }
 }
 
