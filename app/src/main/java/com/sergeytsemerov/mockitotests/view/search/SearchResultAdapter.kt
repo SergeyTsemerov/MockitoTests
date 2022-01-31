@@ -2,6 +2,7 @@ package com.sergeytsemerov.mockitotests.view.search
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.sergeytsemerov.mockitotests.databinding.ListItemBinding
 import com.sergeytsemerov.mockitotests.model.SearchResult
@@ -41,6 +42,9 @@ internal class SearchResultAdapter : RecyclerView.Adapter<SearchResultViewHolder
 
         fun bind(searchResult: SearchResult) {
             binding.repositoryName.text = searchResult.fullName
+            binding.repositoryName.setOnClickListener {
+                Toast.makeText(itemView.context, searchResult.fullName, Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }

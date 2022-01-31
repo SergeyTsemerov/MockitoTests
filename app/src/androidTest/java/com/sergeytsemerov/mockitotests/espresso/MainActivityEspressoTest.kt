@@ -96,7 +96,7 @@ class MainActivityEspressoTest {
     @Test
     fun activityButton_IsWorking() {
         onView(withId(R.id.toDetailsActivityButton)).perform(click())
-        onView(withId(R.id.detailsActivity)).check(matches(isDisplayed()))
+        onView(withId(R.id.detailsFragmentContainer)).check(matches(isDisplayed()))
     }
 
     @Test

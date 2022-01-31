@@ -10,39 +10,17 @@ import com.sergeytsemerov.mockitotests.presenter.details.DetailsPresenter
 import com.sergeytsemerov.mockitotests.presenter.details.PresenterDetailsContract
 import java.util.*
 
-class DetailsActivity : AppCompatActivity(), ViewDetailsContract {
-
-    private lateinit var binding: ActivityDetailsBinding
-    private val presenter: PresenterDetailsContract = DetailsPresenter(this)
+class DetailsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityDetailsBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        presenter.onAttach(this)
-        setUI()
-    }
-
-    private fun setUI() {
-        val count = intent.getIntExtra(TOTAL_COUNT_EXTRA, DEFAULT_VALUE)
-        presenter.setCounter(count)
-        setCountText(count)
-        binding.decrementButton.setOnClickListener { presenter.onDecrement() }
-        binding.incrementButton.setOnClickListener { presenter.onIncrement() }
-    }
-
-    override fun setCount(count: Int) {
-        setCountText(count)
-    }
-
-    private fun setCountText(count: Int) {
-        binding.totalCountTextView.text =
-            String.format(Locale.getDefault(), getString(R.string.results_count), count)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        presenter.onDetach()
+        setContentView(R.layout.activity_details)
+        supportFragmentManager.beginTransaction()
+            .add(
+                R.id.detailsFragmentContainer,
+                DetailsFragment.newInstance(intent.getIntExtra(TOTAL_COUNT_EXTRA, DEFAULT_VALUE))
+            )
+            .commitAllowingStateLoss()
     }
 
     companion object {

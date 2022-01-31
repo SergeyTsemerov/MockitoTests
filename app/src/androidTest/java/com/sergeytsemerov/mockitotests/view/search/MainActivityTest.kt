@@ -50,7 +50,7 @@ class MainActivityTest {
                 withId(R.id.incrementButton), withText("+"),
                 childAtPosition(
                     allOf(
-                        withId(R.id.detailsActivity),
+                        withId(R.id.detailsFragmentContainer),
                         childAtPosition(
                             withId(android.R.id.content),
                             0
@@ -68,7 +68,7 @@ class MainActivityTest {
                 withId(R.id.totalCountTextView), withText(TEST_NUMBER_OF_RESULTS_PLUS_1),
                 withParent(
                     allOf(
-                        withId(R.id.detailsActivity),
+                        withId(R.id.detailsFragmentContainer),
                         withParent(withId(android.R.id.content))
                     )
                 ),
@@ -82,7 +82,7 @@ class MainActivityTest {
                 withId(R.id.incrementButton), withText("+"),
                 withParent(
                     allOf(
-                        withId(R.id.detailsActivity),
+                        withId(R.id.detailsFragmentContainer),
                         withParent(withId(android.R.id.content))
                     )
                 ),
