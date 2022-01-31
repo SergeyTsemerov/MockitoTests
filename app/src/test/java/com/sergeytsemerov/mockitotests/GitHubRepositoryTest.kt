@@ -3,7 +3,7 @@ package com.sergeytsemerov.mockitotests
 import com.sergeytsemerov.mockitotests.model.SearchResponse
 import com.sergeytsemerov.mockitotests.repository.GitHubApi
 import com.sergeytsemerov.mockitotests.repository.GitHubRepository
-import com.sergeytsemerov.mockitotests.repository.GitHubRepository.GitHubRepositoryCallback
+import com.sergeytsemerov.mockitotests.repository.RepositoryCallback
 import okhttp3.Request
 import okio.Timeout
 import org.junit.Before
@@ -24,7 +24,7 @@ class GitHubRepositoryTest {
 
     @Before
     fun setUp() {
-        MockitoAnnotations.initMocks(this)
+        MockitoAnnotations.openMocks(this)
         repository = GitHubRepository(gitHubApi)
     }
 
@@ -34,7 +34,7 @@ class GitHubRepositoryTest {
         val call = mock(Call::class.java) as Call<SearchResponse?>
 
         `when`(gitHubApi.searchGithub(searchQuery)).thenReturn(call)
-        repository.searchGithub(searchQuery, mock(GitHubRepositoryCallback::class.java))
+        repository.searchGithub(searchQuery, mock(RepositoryCallback::class.java))
         verify(gitHubApi, times(1)).searchGithub(searchQuery)
     }
 
@@ -42,7 +42,7 @@ class GitHubRepositoryTest {
     fun searchGithub_TestCallback() {
         val searchQuery = "some query"
         val response = mock(Response::class.java) as Response<SearchResponse?>
-        val gitHubRepositoryCallBack = mock(GitHubRepositoryCallback::class.java)
+        val gitHubRepositoryCallBack = mock(RepositoryCallback::class.java)
 
         val call = object : Call<SearchResponse?> {
             override fun enqueue(callback: Callback<SearchResponse?>) {
@@ -90,7 +90,7 @@ class GitHubRepositoryTest {
         val searchQuery = "some query"
         val call = mock(Call::class.java) as Call<SearchResponse?>
         val callBack = mock(Callback::class.java) as Callback<SearchResponse?>
-        val gitHubRepositoryCallBack = mock(GitHubRepositoryCallback::class.java)
+        val gitHubRepositoryCallBack = mock(RepositoryCallback::class.java)
         val response = mock(Response::class.java) as Response<SearchResponse?>
 
         `when`(gitHubApi.searchGithub(searchQuery)).thenReturn(call)

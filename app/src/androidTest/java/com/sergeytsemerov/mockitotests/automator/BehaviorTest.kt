@@ -9,6 +9,10 @@ import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.Until
+import com.sergeytsemerov.mockitotests.TEST_NUMBER_OF_RESULTS_MINUS_1
+import com.sergeytsemerov.mockitotests.TEST_NUMBER_OF_RESULTS_PLUS_1
+import com.sergeytsemerov.mockitotests.TEST_NUMBER_OF_RESULTS_ZERO
+import com.sergeytsemerov.mockitotests.TIMEOUT
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -63,7 +67,7 @@ class BehaviorTest {
                 Until.findObject(By.res(packageName, "totalCountTextView")),
                 TIMEOUT
             )
-        Assert.assertEquals(changedText.text, "Number of results: 0")
+        Assert.assertEquals(changedText.text, TEST_NUMBER_OF_RESULTS_ZERO)
     }
 
     @Test
@@ -90,7 +94,7 @@ class BehaviorTest {
                 Until.findObject(By.res(packageName, "totalCountTextView")),
                 TIMEOUT
             )
-        Assert.assertEquals(countZeroText.text, "Number of results: 0")
+        Assert.assertEquals(countZeroText.text, TEST_NUMBER_OF_RESULTS_ZERO)
 
         val incrementButton = uiDevice.findObject(By.res(packageName, "incrementButton"))
         incrementButton.click()
@@ -98,7 +102,7 @@ class BehaviorTest {
             Until.findObject(By.res(packageName, "totalCountTextView")),
             TIMEOUT
         )
-        Assert.assertEquals(changedText.text, "Number of results: 1")
+        Assert.assertEquals(changedText.text, TEST_NUMBER_OF_RESULTS_PLUS_1)
     }
 
     @Test
@@ -110,7 +114,7 @@ class BehaviorTest {
                 Until.findObject(By.res(packageName, "totalCountTextView")),
                 TIMEOUT
             )
-        Assert.assertEquals(countZeroText.text, "Number of results: 0")
+        Assert.assertEquals(countZeroText.text, TEST_NUMBER_OF_RESULTS_ZERO)
 
         val decrementButton = uiDevice.findObject(By.res(packageName, "decrementButton"))
         decrementButton.click()
@@ -118,10 +122,6 @@ class BehaviorTest {
             Until.findObject(By.res(packageName, "totalCountTextView")),
             TIMEOUT
         )
-        Assert.assertEquals(changedText.text, "Number of results: -1")
-    }
-
-    companion object {
-        private const val TIMEOUT = 5000L
+        Assert.assertEquals(changedText.text, TEST_NUMBER_OF_RESULTS_MINUS_1)
     }
 }
